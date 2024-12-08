@@ -1,0 +1,172 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search</title>
+    <style>
+        body{
+            margin: 0;
+            padding: 0;
+            background-color: #4d4d4d;
+        }
+
+        .card{
+            height: 200px;
+            width: 500px;
+            background-color: silver;
+            position: absolute;
+            top: 150px;
+            right: 600px;
+            border-radius: 20px;
+            padding-top: 30px;
+        }
+
+        .input{
+            display: block;
+            height: 20px;
+            margin: 10px auto;
+            width: 400px;
+            border-radius: 30px;
+            padding: 10px;
+            font-size: 16px;
+        }
+
+        .btn{
+            padding: 10px;
+            width: 150px;
+            border-radius: 20px;
+            margin-left: 60px;
+            margin-top: 30px;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn-primary{
+            background-color: rgb(20, 192, 20);
+            font-weight: bold;
+            font-size: 20px;
+        }
+
+        .btn-secondary{
+            background-color: rgb(247, 0, 0);
+            font-weight: bold;
+            font-size: 20px;
+        }
+
+        .container{
+            min-height: 95%;
+            background-color: aliceblue;
+            margin: 10px;
+            width: 28%;
+            position: fixed;
+            right: 0;
+            border-radius: 15px;
+        }
+
+        .search-bar{
+            height: 30px;
+            margin: 10px;
+            width: 320px;
+            border-radius: 30px;
+            padding: 10px;
+            font-size: 18px;
+        }
+
+        .search-icon{
+            height: 25px;
+            position: absolute;
+            right: 0;
+            top: 27px;
+            left: 300px;
+            cursor: pointer;
+        }
+
+        .student-card{
+            display: block;
+            height: 20px;
+            padding: 10px;
+            width: 80%;
+            margin: 10px auto;
+            font-size: 18px;
+            border-radius: 30px;
+            text-align: center;
+            box-shadow: 0 0 5px rgba(0,0,0,0.1);
+            border: 1px solid silver;
+        }   
+
+
+        .icon-container{
+            margin: 10px;
+            display: flex;
+        }
+
+        .action-icon{
+            display: block;
+            height: 40px;
+            margin: 0 auto;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <input type="text" class="input" placeholder="Enter name" id="input-name">
+        <button class="btn btn-secondary" onclick="removeStudent()"><img src="remove.jpeg" height="20px" width="20px"> REVOME</button>
+        <button class="btn btn-primary" onclick="addStudent()"><img src="add.jpeg" height="20px" width="20px"> ADD</button>
+    </div>
+    <div class="container">
+        <div class="banner">
+            <input type="text" class="search-bar" id="search" placeholder="Search" onkeyup="searchResult()">
+            <img src="search.jpeg" alt="" class="search-icon">
+
+            <div class="students" id="students">
+
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const meetGroup = []
+        function loadMeet() {
+            const studList = document.getElementById('students')
+            studList.innerHTML = ""
+            meetGroup.forEach((stud)=>{
+                students.innerHTML += `<p class='student-card'> ${stud} </p>`;
+            })
+        }
+        loadMeet()
+
+        const inputElement = document.getElementById('input-name')
+
+        function addStudent() {
+            meetGroup.push(inputElement.value.toUpperCase());
+            inputElement.value = "";
+            loadMeet();
+        }
+
+        function removeStudent() {
+            const studIndex = meetGroup.indexOf(inputElement.value);
+            inputElement.value = "";
+            meetGroup.splice(studIndex, 1);
+            loadMeet();
+        }
+
+        function searchResult() {
+            const searchElement = document.getElementById('search');
+            const searchText = searchElement.value.toLowerCase();
+            students.innerHTML = ''
+            const filteredStudents = meetGroup.filter((stud)=>{
+                if(stud.toLowerCase().includes(searchText)){
+                    return true
+                }
+            })
+            filteredStudents.forEach((stud)=>{
+                students.innerHTML += `<p class='student-card'> ${stud} </p>`;
+            })
+        }
+    </script>
+</body>
+</html>
